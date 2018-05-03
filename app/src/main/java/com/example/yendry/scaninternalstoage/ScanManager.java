@@ -139,8 +139,12 @@ public class ScanManager {
     public List<ElementFile> getTenBiggest(List<Element> list) {
         Collections.sort(list, (o1, o2) -> ((Long)((ElementFile)o2).getSize()).compareTo(((ElementFile)o1).getSize()));
         List<ElementFile> result = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            result.add((ElementFile) list.get(i));
+        int count = 0;
+        for (Element item :list) {
+            if (count==10)
+                break;
+            count++;
+            result.add((ElementFile) item);
         }
         return result;
     }
