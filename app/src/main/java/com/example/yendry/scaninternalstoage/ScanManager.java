@@ -137,7 +137,7 @@ public class ScanManager {
     }
 
     public List<ElementFile> getTenBiggest(List<Element> list) {
-        Collections.sort(list, (o1, o2) -> ((ElementFile) o1).getSize() > ((ElementFile) o2).getSize() ? -1 : 1);
+        Collections.sort(list, (o1, o2) -> ((Long)((ElementFile)o2).getSize()).compareTo(((ElementFile)o1).getSize()));
         List<ElementFile> result = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             result.add((ElementFile) list.get(i));
@@ -157,12 +157,7 @@ public class ScanManager {
 
     public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
         List<Map.Entry<K, V>> list = new LinkedList<>(map.entrySet());
-        Collections.sort(list, new Comparator<Map.Entry<K, V>>() {
-            @Override
-            public int compare(Map.Entry<K, V> e1, Map.Entry<K, V> e2) {
-                return (e2.getValue()).compareTo(e1.getValue());
-            }
-        });
+        Collections.sort(list, (e1, e2) -> (e2.getValue()).compareTo(e1.getValue()));
 
         Map<K, V> result = new LinkedHashMap<>();
         for (Map.Entry<K, V> entry : list) {
